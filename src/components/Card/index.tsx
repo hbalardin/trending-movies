@@ -1,12 +1,14 @@
 import React, { MouseEventHandler } from 'react';
 import { FiCalendar } from 'react-icons/fi';
+import { FaStar } from 'react-icons/fa';
+
+import logoImg from '../../assets/logo.png';
 
 import Movie from './interface';
 
 import RatingStars from '../RatingStars';
 
 import { Average, Container, Content, ImageContainer } from './styles';
-import { FaStar } from 'react-icons/fa';
 
 interface CardProps {
   data: Movie;
@@ -27,7 +29,7 @@ const Card = ({ data, onClick }: CardProps) => {
   return (
     <Container onClick={onClick}>
       <ImageContainer>
-        <img src={`${data.image}`} alt="image" />
+        <img src={`${data.image ? data.image : logoImg}`} alt="image" />
       </ImageContainer>
       <Content>
         <strong>{data.title}</strong>

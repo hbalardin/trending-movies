@@ -21,32 +21,34 @@ interface Genre {
 
 const MovieDetails = () => {
   const [genres, setGenres] = useState<Genre[]>([]);
-  const { location, push } = useHistory();
+  const history = useHistory();
 
-  const movie = location.state as Movie;
+  const movie = history.location.state as Movie;
 
   useEffect(() => {
-    if (!movie) return push('/');
+    if (!movie) return history.push('/');
     window.scrollTo(0, 0);
 
     const loadData = async () => {
-      const response = await api.get(`genre/movie/list`, {
-        params: {
-          api_key: 'b9a162a4975820acf517003c0ae2c2d2'
-        }
-      });
+      try {
+        const response = await api.get(`genre/movie/list`, {
+          params: {
+            api_key: 'b9a162a4975820acf517003c0ae2c2d2'
+          }
+        });
 
-      const allGenres = response.data.genres;
+        const allGenres = response.data.genres;
 
-      const filteredGenres = movie.genre_ids.map(genreId => {
-        return allGenres.find((genre: Genre) => genre.id === genreId);
-      });
+        const filteredGenres = movie.genre_ids.map(genreId => {
+          return allGenres.find((genre: Genre) => genre.id === genreId);
+        });
 
-      setGenres(filteredGenres);
+        setGenres(filteredGenres);
+      } catch (error) {}
     };
 
     loadData();
-  }, [movie, push]);
+  }, [movie, history]);
 
   return (
     <>

@@ -15,12 +15,13 @@ export const ImageContainer = styled.div`
   align-self: center;
   & {
     height: 128px;
+    width: 88px;
     border-radius: 8px;
   }
   img {
     height: 100%;
+    width: 100%;
     border-radius: 8px;
-    object-fit: cover;
   }
 `;
 

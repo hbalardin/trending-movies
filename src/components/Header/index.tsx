@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 
 import logoImg from '../../assets/logo.png';
@@ -8,11 +8,20 @@ import { Container, Menu, SearchBar } from './styles';
 
 const Header = () => {
   const [isFocused, setIsFocused] = useState(false);
+  const [inputValue, setInputValue] = useState('');
 
-  const handleSearch = useCallback(() => {
+  const history = useHistory();
+
+  const handleSearch = useCallback(async () => {
     if (!isFocused) return setIsFocused(true);
+
+    history.push({
+      pathname: '/search',
+      search: `query=${inputValue}`
+    });
+
     return setIsFocused(false);
-  }, [isFocused]);
+  }, [isFocused, inputValue, history]);
 
   return (
     <Container>
@@ -20,7 +29,11 @@ const Header = () => {
         <Menu>
           <div>
             <Link to="/">
-              <img src={logoImg} alt="logo" />
+              <img
+                src={logoImg}
+                alt="logo"
+                onClick={() => setIsFocused(false)}
+              />
             </Link>
           </div>
           <ul>
@@ -34,6 +47,8 @@ const Header = () => {
             type="text"
             placeholder="Pesquise por um título"
             className={isFocused ? 'focus' : ''}
+            value={inputValue}
+            onChange={event => setInputValue(event.target.value)}
           />
           <FaSearch color="#EBE7F5" size={24} onClick={handleSearch}></FaSearch>
         </SearchBar>
