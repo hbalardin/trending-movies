@@ -7,18 +7,19 @@ export default createGlobalStyle`
     box-sizing: border-box;
     outline: 0;
   }
-  body {
+  body, #root {
     width: 100vw;
     height: 100vh;
 
-    background: #230155;
-    color: #EBE7F5;
+    background: #1e073f;
     -webkit-font-smoothing: antialiased;
   }
   h1,h2,h3,h4 {
+    color: #EBE7F5;
     font-family: 'Roboto Condensed', sans-serif;
   }
-  p, strong {
+  p, strong, a {
+    color: #EBE7F5;
     font-family: 'Roboto', sans-serif;
   }
   button {

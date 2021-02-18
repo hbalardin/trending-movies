@@ -6,20 +6,19 @@ interface AverageProps {
 
 export const Container = styled.div`
   display: flex;
-  padding: 8px;
 
-  background: #3d0271;
+  background: #230155;
   border-radius: 8px;
 `;
 
 export const ImageContainer = styled.div`
   align-self: center;
   & {
-    width: 88px;
+    height: 128px;
     border-radius: 8px;
   }
   img {
-    width: 100%;
+    height: 100%;
     border-radius: 8px;
     object-fit: cover;
   }
@@ -37,7 +36,7 @@ export const Content = styled.div`
   position: relative;
 
   strong {
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 16px;
   }
 
@@ -68,7 +67,7 @@ export const Average = styled.span<AverageProps>`
 
   align-self: flex-end;
 
-  padding: 12px 24px 12px 20px;
+  padding: 12px 16px 12px 12px;
 
   border-radius: 8px;
 
@@ -84,7 +83,7 @@ export const Average = styled.span<AverageProps>`
   p {
     margin-left: 8px;
     font-weight: 600;
-    color: #030202;
+    color: #1e073f;
     font-size: 16px;
   }
 `;

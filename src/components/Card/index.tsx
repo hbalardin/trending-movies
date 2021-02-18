@@ -3,14 +3,14 @@ import { FiCalendar } from 'react-icons/fi';
 
 import Movie from './interface';
 
-import RatingStars from '../Stars';
+import RatingStars from '../RatingStars';
 
 import { Average, Container, Content, ImageContainer } from './styles';
 import { FaStar } from 'react-icons/fa';
 
 interface CardProps {
   data: Movie;
-  onClick: MouseEventHandler<HTMLElement>
+  onClick?: MouseEventHandler<HTMLElement>;
 }
 
 const Card = ({ data, onClick }: CardProps) => {
@@ -36,11 +36,11 @@ const Card = ({ data, onClick }: CardProps) => {
           <p>{data.release_date}</p>
         </div>
         <div>
-          <RatingStars average={data.vote_average} color="#FBDB56" size={16} />
+          <RatingStars average={data.vote_average} size={16} />
           <p>({data.vote_count})</p>
         </div>
         <Average backgroundColor={averageColor}>
-          <FaStar size={20} color="#030202"></FaStar>
+          <FaStar size={20} color="#1e073f"></FaStar>
           <p>{data.vote_average}</p>
         </Average>
       </Content>
