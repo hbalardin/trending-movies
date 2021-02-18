@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { format } from 'date-fns';
-import pt from 'date-fns/locale/pt-BR';
+
 import Card from '../../components/Card';
 import Movie from '../../components/Card/interface';
 
@@ -28,11 +28,7 @@ const Home = () => {
       );
 
       const parsedMovies = sortedMovies.map((movie: Movie) => {
-        const parsedDate = format(
-          new Date(movie.release_date),
-          "d 'de' MMMM 'de' Y",
-          { locale: pt }
-        );
+        const parsedDate = format(new Date(movie.release_date), 'MMMM d, Y');
 
         return {
           ...movie,
@@ -42,7 +38,6 @@ const Home = () => {
             : null
         };
       });
-
       setMovies(parsedMovies);
     };
     loadData();
@@ -52,7 +47,10 @@ const Home = () => {
       <Header />
       <Container>
         {movies.map(movie => (
-          <Card data={movie} key={movie.id} onClick={() => history.push(`/movie/${movie.id}`, movie)}></Card>
+          <Card
+            data={movie}
+            key={movie.id}
+            onClick={() => history.push(`/movie/${movie.id}`, movie)}></Card>
         ))}
       </Container>
     </>
