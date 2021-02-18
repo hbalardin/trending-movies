@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import { FiCalendar } from 'react-icons/fi';
 
 import Movie from './interface';
@@ -10,9 +10,10 @@ import { FaStar } from 'react-icons/fa';
 
 interface CardProps {
   data: Movie;
+  onClick: MouseEventHandler<HTMLElement>
 }
 
-const Card = ({ data }: CardProps) => {
+const Card = ({ data, onClick }: CardProps) => {
   let averageColor = '';
 
   if (data.vote_average < 6) {
@@ -24,7 +25,7 @@ const Card = ({ data }: CardProps) => {
   }
 
   return (
-    <Container>
+    <Container onClick={onClick}>
       <ImageContainer>
         <img src={`${data.image}`} alt="image" />
       </ImageContainer>

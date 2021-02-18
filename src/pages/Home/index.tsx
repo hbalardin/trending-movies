@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { format } from 'date-fns';
 import pt from 'date-fns/locale/pt-BR';
-
 import Card from '../../components/Card';
 import Movie from '../../components/Card/interface';
 
 import api from '../../services/api';
 
 import { Container } from './styles';
+import Header from '../../components/Header';
 
 const Home = () => {
+  const history = useHistory();
+
   const [movies, setMovies] = useState<Movie[]>([] as Movie[]);
 
   useEffect(() => {
@@ -45,11 +48,14 @@ const Home = () => {
     loadData();
   }, []);
   return (
-    <Container>
-      {movies.map(movie => (
-        <Card key={movie.id} data={movie}></Card>
-      ))}
-    </Container>
+    <>
+      <Header />
+      <Container>
+        {movies.map(movie => (
+          <Card data={movie} key={movie.id} onClick={() => history.push(`/movie/${movie.id}`, movie)}></Card>
+        ))}
+      </Container>
+    </>
   );
 };
 

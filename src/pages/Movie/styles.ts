@@ -10,5 +10,5 @@ export const Container = styled.div`
   display: grid;
 
   grid-template-columns: 1fr;
-  grid-gap: 24px 0;
+  grid-gap: 24px;
 `;
