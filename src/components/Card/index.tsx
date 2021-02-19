@@ -33,10 +33,12 @@ const Card = ({ data, onClick }: CardProps) => {
       </ImageContainer>
       <Content>
         <strong>{data.title}</strong>
-        <div>
-          <FiCalendar size={20} color="#F62E76"></FiCalendar>
-          <p>{data.release_date}</p>
-        </div>
+        {data.release_date ? (
+          <div>
+            <FiCalendar size={20} color="#F62E76"></FiCalendar>
+            <p>{data.release_date}</p>
+          </div>
+        ) : null}
         <div>
           <RatingStars average={data.vote_average} size={16} />
           <p>({data.vote_count})</p>

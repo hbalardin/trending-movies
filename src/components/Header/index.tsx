@@ -14,13 +14,12 @@ const Header = () => {
 
   const handleSearch = useCallback(async () => {
     if (!isFocused) return setIsFocused(true);
+    if (inputValue === '') return setIsFocused(false);
 
     history.push({
       pathname: '/search',
       search: `query=${inputValue}`
     });
-
-    return setIsFocused(false);
   }, [isFocused, inputValue, history]);
 
   return (

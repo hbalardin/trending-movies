@@ -53,21 +53,27 @@ const MovieDetails = () => {
   return (
     <>
       <Header />
-      <Container imageUrl={movie.image}>
-        <MovieCard>
-          <h2>{movie.title}</h2>
-          <RatingContainer>
-            <RatingStars size={16} average={movie.vote_average}></RatingStars>
-            <span>{movie.vote_average}</span>
-          </RatingContainer>
-          <GenresContainer>
-            {genres.map(genre => (
-              <span key={genre.id}>{genre.name}</span>
-            ))}
-          </GenresContainer>
-          <p>{movie.overview}</p>
-        </MovieCard>
-      </Container>
+      {!!movie && (
+        <Container imageUrl={movie.image}>
+          <MovieCard>
+            <h2>{movie.title}</h2>
+            <RatingContainer>
+              <span>
+                <RatingStars
+                  size={16}
+                  average={movie.vote_average}></RatingStars>
+                <p>{movie.vote_average}</p>
+              </span>
+            </RatingContainer>
+            <GenresContainer>
+              {genres.map(genre => (
+                <span key={genre.id}>{genre.name}</span>
+              ))}
+            </GenresContainer>
+            <p>{movie.overview}</p>
+          </MovieCard>
+        </Container>
+      )}
     </>
   );
 };

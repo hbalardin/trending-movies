@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 
 import Card from '../../components/Card';
 import Movie from '../../components/Card/interface';
@@ -34,20 +34,24 @@ const SearchResults = () => {
         );
 
         const parsedMovies = sortedMovies.map((movie: Movie) => {
-          const parsedDate = format(new Date(movie.release_date), 'MMMM d, Y');
+          const parsedDate = movie.release_date
+            ? format(parseISO(movie.release_date), 'MMMM d, Y')
+            : null;
 
-          return {
+          const parsedMovie = {
             ...movie,
             release_date: parsedDate,
             image: movie.poster_path
               ? `https://image.tmdb.org/t/p/w300${movie.poster_path}`
               : null
           };
+
+          return parsedMovie;
         });
 
         setMovies(parsedMovies);
       } catch (error) {
-        setMovies([]);
+        console.log(error.message);
       }
     };
 
