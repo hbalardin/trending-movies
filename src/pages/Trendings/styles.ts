@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 100vw;
-  height: calc(100vh - 80px);
+  width: 100%;
 
-  padding: 16px;
+  padding: 24px 16px;
 
-  display: grid;
+  display: flex;
+  flex-direction: column;
 
-  grid-template-columns: 1fr;
-  grid-gap: 24px 0;
+  @media (min-width: 425px) {
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
 `;

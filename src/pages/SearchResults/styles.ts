@@ -1,13 +1,18 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 100vw;
-  height: calc(100vh - 80px);
+  width: 100%;
 
-  padding: 16px;
+  margin: 0 auto;
 
-  display: grid;
+  padding: 24px 16px;
 
-  grid-template-columns: 1fr;
-  grid-gap: 24px 0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 24px;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
 `;

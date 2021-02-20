@@ -8,7 +8,7 @@ import Movie from './interface';
 
 import RatingStars from '../RatingStars';
 
-import { Average, Container, Content, ImageContainer } from './styles';
+import { Average, Container, Content, ImageContainer, Title } from './styles';
 
 interface CardProps {
   data: Movie;
@@ -32,16 +32,18 @@ const Card = ({ data, onClick }: CardProps) => {
         <img src={`${data.image ? data.image : logoImg}`} alt="image" />
       </ImageContainer>
       <Content>
-        <strong>{data.title}</strong>
-        {data.release_date ? (
-          <div>
-            <FiCalendar size={20} color="#F62E76"></FiCalendar>
-            <p>{data.release_date}</p>
-          </div>
-        ) : null}
         <div>
-          <RatingStars average={data.vote_average} size={16} />
-          <p>({data.vote_count})</p>
+          <Title>{data.title}</Title>
+          {data.release_date ? (
+            <div>
+              <FiCalendar size={20} color="#F62E76"></FiCalendar>
+              <p>{data.release_date}</p>
+            </div>
+          ) : null}
+          <div>
+            <RatingStars average={data.vote_average} size={16} />
+            <p>({data.vote_count})</p>
+          </div>
         </div>
         <Average backgroundColor={averageColor}>
           <FaStar size={20} color="#1e073f"></FaStar>

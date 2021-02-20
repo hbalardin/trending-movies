@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 interface ContainerProps {
   imageUrl: string | null;
@@ -6,23 +6,26 @@ interface ContainerProps {
 
 export const Container = styled.div<ContainerProps>`
   width: 100%;
-  min-height: calc(100vh - 80px);
   margin: 0 auto;
 
-  background: ${props => (props.imageUrl ? `url(${props.imageUrl})` : 'red')};
-  background-size: contain;
+  ${props =>
+    props.imageUrl &&
+    css`
+      background: url(${props.imageUrl}) center no-repeat;
+      background-size: cover;
+    `}
 
   display: flex;
-  flex: 1;
 `;
 
 export const MovieCard = styled.div`
-  background: #230155;
   padding: 32px 24px;
-  border-radius: 32px 32px 0 0;
   margin: 0 16px;
 
-  margin-top: 320px;
+  background: #230155;
+  border-radius: 32px 32px 0 0;
+
+  margin-top: 40vh;
 
   p {
     font-size: 14px;
@@ -32,15 +35,13 @@ export const MovieCard = styled.div`
 
   @keyframes card {
     0% {
-      margin-top: 420px;
+      margin-top: 100vh;
     }
     100% {
-      margin-top: 320px;
+      margin-top: 40vh;
     }
   }
-  & {
-    animation: card 2s ease;
-  }
+  animation: card 2s ease;
 `;
 
 export const RatingContainer = styled.div`
@@ -52,10 +53,16 @@ export const RatingContainer = styled.div`
   margin-top: 8px;
 
   span {
-    color: #fbdb56;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
-    font-size: 16px;
+    display: flex;
+    align-items: center;
+
+    p {
+      margin-left: 4px;
+      color: #fbdb56;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+    }
   }
 `;
 

@@ -1,16 +1,15 @@
 import styled from 'styled-components';
 
 export const Container = styled.header`
-  background: #230155;
+  height: 80px;
   border-radius: 0 0 16px 16px;
+  background: #230155;
 
-  nav {
-    padding: 8px 16px;
+  padding: 8px 16px;
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const Menu = styled.div`
@@ -18,36 +17,63 @@ export const Menu = styled.div`
   align-items: center;
 
   div {
-    height: 64px;
+    &:hover {
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        25% {
+          transform: rotate(-10deg);
+        }
+        75% {
+          transform: rotate(10deg);
+        }
+        100% {
+          transform: rotate(0deg);
+        }
+      }
 
-    img {
-      height: 100%;
+      animation: rotate 1s ease;
+    }
+
+    a {
+      img {
+        width: 64px;
+        object-fit: contain;
+      }
     }
   }
 
-  ul {
-    display: none;
-    li,
-    a {
-      margin-left: 8px;
-      text-decoration: none;
+  > a {
+    &.hidden {
+      display: none;
+    }
+
+    margin-left: 16px;
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+
+    &:hover {
+      transform: translate3d(0, -2px, 0);
+      color: #f62e76;
+      transition: 0.6s ease;
     }
   }
 `;
 
 export const SearchBar = styled.div`
-  height: 40px;
-
   display: flex;
   align-items: center;
-  justify-content: flex-end;
 
-  max-width: 208px;
+  div:hover {
+    transform: scale(1.2);
+  }
 
   input {
     opacity: 0;
     width: 0;
-    margin-right: 8px;
+    margin-right: 16px;
     padding: 4px 8px;
 
     border-radius: 8px;
@@ -58,13 +84,14 @@ export const SearchBar = styled.div`
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
 
-    transition: all 0.7s ease;
+    transition: 0.7s ease;
 
     &::placeholder {
       color: #3d0271;
     }
 
     &.focus {
+      opacity: 1;
       width: 100%;
       opacity: 100%;
     }

@@ -14,11 +14,13 @@ export default createGlobalStyle`
     background: #1e073f;
     -webkit-font-smoothing: antialiased;
   }
+
   h1,h2,h3,h4 {
     color: #EBE7F5;
     font-family: 'Roboto Condensed', sans-serif;
   }
   p, strong, a {
+    display: block;
     color: #EBE7F5;
     font-family: 'Roboto', sans-serif;
   }
