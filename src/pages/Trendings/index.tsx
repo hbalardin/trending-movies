@@ -8,17 +8,18 @@ import Movie from '../../components/Card/interface';
 import api from '../../services/api';
 
 import { Container } from './styles';
-import Header from '../../components/Header';
 
 const Trendings = () => {
   const [movies, setMovies] = useState<Movie[]>([] as Movie[]);
+  const [loading, setLoading] = useState(false);
 
   const history = useHistory();
 
   useEffect(() => {
+    setLoading(true);
     const loadData = async () => {
       try {
-        const response = await api.get(`trending/movie/day`, {
+        const response = await api.get(`trending/movie/week`, {
           params: {
             api_key: 'b9a162a4975820acf517003c0ae2c2d2'
           }
@@ -33,33 +34,43 @@ const Trendings = () => {
             ? format(parseISO(movie.release_date), 'MMMM d, Y')
             : null;
 
+          const parsedVoteAverage =
+            String(movie.vote_average).length === 1
+              ? movie.vote_average + '.0'
+              : String(movie.vote_average);
+
           const parsedMovie = {
             ...movie,
             release_date: parsedDate,
+            parsedVoteAverage,
             image: movie.poster_path
-              ? `https://image.tmdb.org/t/p/w300${movie.poster_path}`
+              ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
               : null
           };
 
           return parsedMovie;
         });
+        setLoading(false);
         setMovies(parsedMovies);
-      } catch (error) {}
+      } catch (error) {
+        history.push('/error-page', 500);
+      }
     };
     loadData();
-  }, []);
+  }, [history]);
   return (
-    <>
-      <Header />
-      <Container>
+    <Container>
+      <h1>{loading ? 'Loading...' : 'Trending movies of week:'}</h1>
+
+      <div>
         {movies.map(movie => (
           <Card
             data={movie}
             key={movie.id}
             onClick={() => history.push(`/movies/${movie.id}`, movie)}></Card>
         ))}
-      </Container>
-    </>
+      </div>
+    </Container>
   );
 };
 

@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
-
-import Header from '../../components/Header';
 import Card from '../../components/Card';
 import Movie from '../../components/Card/interface';
-import CustomError from '../../components/CustomError';
 
 import api from '../../services/api';
 
@@ -13,13 +10,26 @@ import { Container } from './styles';
 
 const SearchResults = () => {
   const [movies, setMovies] = useState<Movie[]>([] as Movie[]);
-  const [errorStatus, setErrorStatus] = useState<204 | 500 | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const history = useHistory();
   const location = useLocation();
 
+  const handleError = useCallback(
+    (query?: string) => {
+      query
+        ? history.push({
+            pathname: '/oops',
+            search: `query=${query}`,
+            state: 204
+          })
+        : history.push('/oops', 500);
+    },
+    [history]
+  );
+
   useEffect(() => {
-    setErrorStatus(null);
+    setLoading(true);
     const [_, query] = location.search.split('?query=', 2);
 
     const handleSearch = async () => {
@@ -34,7 +44,7 @@ const SearchResults = () => {
         });
 
         if (response.data.total_results === 0) {
-          throw new Error('no results');
+          return handleError(query);
         }
 
         const sortedMovies = response.data.results.sort((a: Movie, b: Movie) =>
@@ -46,34 +56,36 @@ const SearchResults = () => {
             ? format(parseISO(movie.release_date), 'MMMM d, Y')
             : null;
 
+          const parsedVoteAverage =
+            String(movie.vote_average).length === 1
+              ? movie.vote_average + '.0'
+              : String(movie.vote_average);
+
           const parsedMovie = {
             ...movie,
             release_date: parsedDate,
+            parsedVoteAverage,
             image: movie.poster_path
-              ? `https://image.tmdb.org/t/p/w300${movie.poster_path}`
+              ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
               : null
           };
 
           return parsedMovie;
         });
 
+        setLoading(false);
         setMovies(parsedMovies);
       } catch (error) {
-        if (error.message === 'no results') {
-          return setErrorStatus(204);
-        }
-        setErrorStatus(500);
-        console.error(error.message);
+        handleError();
       }
     };
 
     handleSearch();
-  }, [history, location]);
+  }, [history, location, handleError]);
   return (
-    <>
-      <Header />
-      <Container>
-        {!!errorStatus && <CustomError status={errorStatus} />}
+    <Container>
+      <h1>{loading ? 'Loading...' : 'Results:'}</h1>
+      <div>
         {!!movies &&
           movies.map(movie => (
             <Card
@@ -81,8 +93,8 @@ const SearchResults = () => {
               key={movie.id}
               onClick={() => history.push(`/movies/${movie.id}`, movie)}></Card>
           ))}
-      </Container>
-    </>
+      </div>
+    </Container>
   );
 };
 
