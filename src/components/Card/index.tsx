@@ -8,7 +8,14 @@ import Movie from './interface';
 
 import RatingStars from '../RatingStars';
 
-import { Average, Container, Content, ImageContainer, Title } from './styles';
+import {
+  Average,
+  Container,
+  Content,
+  ImageContainer,
+  Info,
+  Title
+} from './styles';
 
 interface CardProps {
   data: Movie;
@@ -27,27 +34,28 @@ const Card = ({ data, onClick }: CardProps) => {
   }
 
   return (
-    <Container onClick={onClick}>
-      <ImageContainer>
-        <img src={`${data.image ? data.image : logoImg}`} alt="image" />
-      </ImageContainer>
+    <Container onClick={onClick} className="move">
+      <ImageContainer imageUrl={data.image ? data.image : logoImg} />
       <Content>
-        <div>
-          <Title>{data.title}</Title>
+        <Title>{data.title}</Title>
+        <Info>
+          <div>
+            <RatingStars average={Number(data.vote_average)} size={16} />
+            <p>({data.vote_count})</p>
+          </div>
           {data.release_date ? (
             <div>
-              <FiCalendar size={20} color="#F62E76"></FiCalendar>
+              <FiCalendar
+                className="grow"
+                size={20}
+                color="#F62E76"></FiCalendar>
               <p>{data.release_date}</p>
             </div>
           ) : null}
-          <div>
-            <RatingStars average={data.vote_average} size={16} />
-            <p>({data.vote_count})</p>
-          </div>
-        </div>
+        </Info>
         <Average backgroundColor={averageColor}>
-          <FaStar size={20} color="#1e073f"></FaStar>
-          <p>{data.vote_average}</p>
+          <FaStar size={16} color="#1e073f"></FaStar>
+          <p>{data.parsedVoteAverage}</p>
         </Average>
       </Content>
     </Container>

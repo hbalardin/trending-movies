@@ -1,23 +1,25 @@
 import styled, { css } from 'styled-components';
 
+interface ImageContainerProps {
+  imageUrl: string;
+}
+
 interface AverageProps {
   backgroundColor: string;
 }
 
 export const Container = styled.div`
   width: 100%;
+  max-width: 100%;
+  height: 192px;
+
   display: flex;
 
-  background: #230155;
-  border-radius: 8px;
+  background: #431d7c;
+  border-radius: 16px 4px 16px 4px;
 
-  &:hover {
-    transform: translate3d(16px, 0, 0);
-    transition: all ease 500ms;
-  }
-
-  animation: message ease 1s;
-  @keyframes message {
+  animation: card ease 1s;
+  @keyframes card {
     0% {
       margin-left: 100vw;
     }
@@ -26,29 +28,38 @@ export const Container = styled.div`
     }
   }
 
-  @media (min-width: 768px) {
-    max-width: 256px;
+  @media (min-width: 425px) {
     flex-direction: column;
+    height: 420px;
 
-    &:hover {
-      transform: translate3d(0, -16px, 0);
+    animation: card ease 1.5s;
+    @keyframes card {
+      0% {
+        margin-top: 100vh;
+      }
+      100% {
+        margin-top: 0vh;
+      }
     }
+  }
+
+  @media (min-width: 1024px) {
+    height: 540px;
   }
 `;
 
-export const ImageContainer = styled.div`
-  width: 35%;
-  border-radius: 8px;
+export const ImageContainer = styled.div<ImageContainerProps>`
+  width: 40%;
+  height: 100%;
 
-  align-self: center;
+  border-radius: 16px 4px 16px 4px;
 
-  img {
+  background: url(${props => props.imageUrl}) no-repeat;
+  background-size: cover;
+
+  @media (min-width: 425px) {
     width: 100%;
-    border-radius: 8px;
-  }
-
-  @media (min-width: 768px) {
-    width: 100%;
+    height: 100%;
   }
 `;
 
@@ -61,28 +72,37 @@ export const Content = styled.div`
   justify-content: space-between;
   flex: 1;
 
-  > div {
-    > div {
-      p {
-        margin-left: 4px;
-        font-size: 14px;
-        font-weight: 300;
-      }
-
-      display: flex;
-      align-items: center;
-      margin-bottom: 16px;
-    }
+  @media (min-width: 425px) {
+    margin: 0;
+    padding: 16px 8px;
+    min-height: 45%;
   }
 
-  @media (min-width: 768px) {
-    padding: 16px;
+  @media (min-width: 1024px) {
+    min-height: 35%;
   }
 `;
 
 export const Title = styled.strong`
-  font-size: 16px;
-  margin-bottom: 16px;
+  display: block;
+  font-size: 2rem;
+`;
+
+export const Info = styled.div`
+  > div {
+    & + div {
+      margin-top: 8px;
+    }
+
+    p {
+      margin-left: 4px;
+      font-size: 1.4rem;
+      font-weight: 300;
+    }
+
+    display: flex;
+    align-items: center;
+  }
 `;
 
 export const Average = styled.span<AverageProps>`
@@ -90,26 +110,25 @@ export const Average = styled.span<AverageProps>`
   align-items: center;
   justify-content: center;
 
-  padding: 12px 16px;
-
+  background: ${props => props.backgroundColor};
   border-radius: 8px;
 
-  ${props =>
-    props.backgroundColor &&
-    css`
-      background: ${props.backgroundColor};
-    `}
+  padding: 8px 12px;
 
   p {
     margin-left: 8px;
     font-weight: 600;
-    color: #1e073f;
-    font-size: 16px;
+    color: #2c1254;
+    font-size: 1.6rem;
   }
 
-  @media (min-width: 768px) {
-    position: static;
-    align-self: flex-start;
+  align-self: flex-start;
+  max-width: 80px;
+
+  &:hover {
     width: 100%;
+    max-width: 100%;
+
+    transition: 1s ease;
   }
 `;

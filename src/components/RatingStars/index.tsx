@@ -17,12 +17,21 @@ const RatingStars = ({ average, size }: RatingStarsProps) => {
 
   const updatedStars = newArray.map(index => {
     if (index < filledStars) {
-      return <FaStar size={size - 1} color="#FBDB56" key={index} />;
+      return (
+        <FaStar size={size - 1} color="#fbdb56" className="grow" key={index} />
+      );
     }
     if (emptyStar && index === filledStars) {
-      return <FaStarHalfAlt color="#FBDB56" size={size - 1} key={index} />;
+      return (
+        <FaStarHalfAlt
+          size={size - 1}
+          color="#fbdb56"
+          className="grow"
+          key={index}
+        />
+      );
     }
-    return <FiStar size={size} color="#FBDB56" key={index} />;
+    return <FiStar size={size} color="#fbdb56" className="grow" key={index} />;
   });
 
   return <Container>{updatedStars.map(star => star)}</Container>;
