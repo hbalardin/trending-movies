@@ -39,7 +39,7 @@ const Trendings = () => {
               ? movie.vote_average + '.0'
               : String(movie.vote_average);
 
-          const parsedMovie = {
+          const parsedMovie: Movie = {
             ...movie,
             release_date: parsedDate,
             parsedVoteAverage,

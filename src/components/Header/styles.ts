@@ -5,19 +5,24 @@ export const Container = styled.header`
   border-radius: 0 0 16px 0;
   background: #431d7c;
 
-  padding: 8px 16px;
+  > div {
+    margin: 0 auto;
+    height: 100%;
+    max-width: 1440px;
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-  @media (min-width: 768px) {
-    height: 96px;
-    padding: 8px 24px;
-  }
+    padding: 8px 16px;
 
-  @media (min-width: 1024px) {
-    padding: 8px 32px;
+    @media (min-width: 768px) {
+      padding: 8px 24px;
+    }
+
+    @media (min-width: 1024px) {
+      padding: 8px 32px;
+    }
   }
 `;
 
@@ -30,28 +35,11 @@ export const Menu = styled.div`
   margin-right: 16px;
 
   div {
+    cursor: pointer;
+
     height: 100%;
     img {
       height: 100%;
-    }
-
-    &:hover {
-      @keyframes rotate {
-        0% {
-          transform: rotate(0deg);
-        }
-        25% {
-          transform: rotate(-10deg);
-        }
-        75% {
-          transform: rotate(10deg);
-        }
-        100% {
-          transform: rotate(0deg);
-        }
-      }
-
-      animation: rotate 1s ease;
     }
   }
 

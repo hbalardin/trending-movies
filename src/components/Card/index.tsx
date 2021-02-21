@@ -46,7 +46,7 @@ const Card = ({ data, onClick }: CardProps) => {
           {data.release_date ? (
             <div>
               <FiCalendar
-                className="grow"
+                className="scale"
                 size={20}
                 color="#F62E76"></FiCalendar>
               <p>{data.release_date}</p>

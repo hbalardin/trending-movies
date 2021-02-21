@@ -36,7 +36,7 @@ export default createGlobalStyle`
     cursor: pointer;
   }
 
-  .grow:hover {
+  .scale:hover {
     transform: translate3d(0, -2px, 0) scale(1.1);
     transition: ease 0.2s;
   }
@@ -47,6 +47,27 @@ export default createGlobalStyle`
 
     @media (min-width: 425px) {
       transform: translate3d(0, -16px, 0);
+    }
+  }
+
+  .rotate:hover {
+    &:hover {
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        25% {
+          transform: rotate(-10deg);
+        }
+        75% {
+          transform: rotate(10deg);
+        }
+        100% {
+          transform: rotate(0deg);
+        }
+      }
+
+      animation: rotate 1s ease;
     }
   }
 

@@ -41,8 +41,8 @@ const CustomError = () => {
       });
     } else {
       setError({
-        title: 'Wooow!',
-        message: 'You were not supposed to get this far ',
+        title: 'Error 404',
+        message: 'Woow! You were not supposed to get this far...',
         imageUrl: homerImg,
         alt: 'Homer Simpson'
       });
@@ -56,7 +56,7 @@ const CustomError = () => {
           <h1>{error?.title}</h1>
           <p>{error?.message}</p>
         </div>
-        <Button onClick={() => history.push('/')} className="grow">
+        <Button onClick={() => history.push('/')} className="scale">
           Go back to Home
         </Button>
       </div>

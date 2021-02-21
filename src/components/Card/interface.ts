@@ -8,5 +8,4 @@ export default interface Movie {
   vote_count: number;
   poster_path: string | null;
   image: string | null;
-  genre_ids: Array<number>;
 }

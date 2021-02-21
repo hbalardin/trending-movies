@@ -2,6 +2,10 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
+  height: 100%;
+
+  margin: 0 auto;
+  max-width: 1440px;
 
   padding: 24px 16px;
 
@@ -60,12 +64,6 @@ export const Container = styled.div`
   @media (min-width: 1440px) {
     > div {
       grid-template-columns: repeat(5, 1fr);
-    }
-  }
-
-  @media (min-width: 1920px) {
-    > div {
-      grid-template-columns: repeat(6, 1fr);
     }
   }
 `;

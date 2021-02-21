@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 interface ImageContainerProps {
   imageUrl: string;
@@ -17,6 +17,10 @@ export const Container = styled.div`
 
   background: #431d7c;
   border-radius: 16px 4px 16px 4px;
+
+  &:hover {
+    cursor: pointer;
+  }
 
   animation: card ease 1s;
   @keyframes card {

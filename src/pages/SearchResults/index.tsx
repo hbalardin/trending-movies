@@ -31,6 +31,7 @@ const SearchResults = () => {
   useEffect(() => {
     setLoading(true);
     const [_, query] = location.search.split('?query=', 2);
+    const parsedQuery = query.replace('%20', ' ');
 
     const handleSearch = async () => {
       try {
@@ -38,7 +39,7 @@ const SearchResults = () => {
         const response = await api.get('/search/movie', {
           params: {
             api_key: 'b9a162a4975820acf517003c0ae2c2d2',
-            query,
+            query: parsedQuery,
             include_adult: true
           }
         });
@@ -61,7 +62,7 @@ const SearchResults = () => {
               ? movie.vote_average + '.0'
               : String(movie.vote_average);
 
-          const parsedMovie = {
+          const parsedMovie: Movie = {
             ...movie,
             release_date: parsedDate,
             parsedVoteAverage,

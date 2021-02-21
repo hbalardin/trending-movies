@@ -20,8 +20,11 @@ export const Container = styled.div`
       margin-bottom: 16px;
       h1 {
         font-size: 2.4rem;
-
         margin-bottom: 8px;
+      }
+      p {
+        text-align: center;
+        max-width: 60%;
       }
     }
   }
@@ -69,6 +72,7 @@ export const Container = styled.div`
 
         p {
           font-size: 2.4rem;
+          text-align: start;
         }
       }
     }
