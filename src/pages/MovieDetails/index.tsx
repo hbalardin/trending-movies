@@ -1,80 +1,63 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
-import Header from '../../components/Header';
-import RatingStars from '../../components/RatingStars';
-import Movie from '../../components/Card/interface';
+import MovieDetailsProps from '../../components/DetailsCard/interface';
 
-import {
-  Container,
-  GenresContainer,
-  MovieCard,
-  RatingContainer
-} from './styles';
+import { Container } from './styles';
 
 import api from '../../services/api';
+import DetailsCard from '../../components/DetailsCard';
+import { format, parseISO } from 'date-fns';
 
-interface Genre {
-  id: number;
-  name: string;
+interface Params {
+  id: string;
 }
 
 const MovieDetails = () => {
-  const [genres, setGenres] = useState<Genre[]>([]);
-  const history = useHistory();
+  const [movie, setMovie] = useState<MovieDetailsProps | null>(null);
 
-  const movie = history.location.state as Movie;
+  const history = useHistory();
+  const { id } = useParams<Params>();
 
   useEffect(() => {
-    if (!movie) return history.push('/');
     window.scrollTo(0, 0);
-
     const loadData = async () => {
       try {
-        const response = await api.get(`genre/movie/list`, {
+        const response = await api.get<MovieDetailsProps>(`/movie/${id}`, {
           params: {
             api_key: 'b9a162a4975820acf517003c0ae2c2d2'
           }
         });
 
-        const allGenres = response.data.genres;
+        const parsedDate = response.data.release_date
+          ? format(parseISO(response.data.release_date), 'MMMM d, Y')
+          : null;
 
-        const filteredGenres = movie.genre_ids.map(genreId => {
-          return allGenres.find((genre: Genre) => genre.id === genreId);
-        });
+        const parsedVoteAverage =
+          String(response.data.vote_average).length === 1
+            ? response.data.vote_average + '.0'
+            : String(response.data.vote_average);
 
-        setGenres(filteredGenres);
-      } catch (error) {}
+        const parsedMovie: MovieDetailsProps = {
+          ...response.data,
+          release_date: parsedDate,
+          parsedVoteAverage,
+          image: response.data.poster_path
+            ? `https://image.tmdb.org/t/p/w500${response.data.poster_path}`
+            : null
+        };
+
+        setMovie(parsedMovie);
+      } catch (error) {
+        history.push('/oops', 500);
+      }
     };
 
     loadData();
-  }, [movie, history]);
+  }, [history, id]);
 
   return (
-    <>
-      <Header />
-      {!!movie && (
-        <Container imageUrl={movie.image}>
-          <MovieCard>
-            <h2>{movie.title}</h2>
-            <RatingContainer>
-              <span>
-                <RatingStars
-                  size={16}
-                  average={movie.vote_average}></RatingStars>
-                <p>{movie.vote_average}</p>
-              </span>
-            </RatingContainer>
-            <GenresContainer>
-              {genres.map(genre => (
-                <span key={genre.id}>{genre.name}</span>
-              ))}
-            </GenresContainer>
-            <p>{movie.overview}</p>
-          </MovieCard>
-        </Container>
-      )}
-    </>
+    <Container>{!!movie && <DetailsCard data={movie}></DetailsCard>}</Container>
   );
 };
 
