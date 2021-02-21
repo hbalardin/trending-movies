@@ -110,7 +110,7 @@ Caso a página não abrir automaticamente, acesse: http://localhost:3000
 
 ## 📋 Licença
 
-Esse repositório está sob a licença [MIT](https://github.com/hbalardin/trending-moviesy/blob/master/LICENSE.md).
+Esse repositório está sob a licença [MIT](https://github.com/hbalardin/trending-movies/blob/master/LICENSE.md).
 
 ---
 
