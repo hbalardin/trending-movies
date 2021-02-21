@@ -22,17 +22,17 @@ const Header = () => {
     });
   }, [inputIsFocused, inputValue, history]);
 
+  const handleBackToHome = useCallback(() => {
+    setInputIsFocused(false);
+
+    history.push('/');
+  }, [history]);
+
   return (
     <Container>
       <Menu>
-        <div>
-          <Link to="/">
-            <img
-              src={logoImg}
-              alt="logo"
-              onClick={() => setInputIsFocused(false)}
-            />
-          </Link>
+        <div onClick={handleBackToHome}>
+          <img src={logoImg} alt="logo" />
         </div>
         <Link to="/" className={inputIsFocused ? 'hidden' : ''}>
           Trendings
@@ -47,9 +47,9 @@ const Header = () => {
           onKeyDown={event => event.key === 'Enter' && handleSearch()}
           onChange={event => setInputValue(event.target.value)}
         />
-        <div>
-          <FaSearch color="#EBE7F5" size={24} onClick={handleSearch}></FaSearch>
-        </div>
+        <button onClick={handleSearch} className="grow">
+          <FaSearch color="#EBE7F5" size={24}></FaSearch>
+        </button>
       </SearchBar>
     </Container>
   );
