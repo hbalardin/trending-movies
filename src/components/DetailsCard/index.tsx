@@ -46,7 +46,10 @@ const DetailsCard = ({ data }: DetailsCardProps) => {
         <Info>
           {data.release_date ? (
             <span>
-              <FiCalendar size={20} color="#F62E76"></FiCalendar>
+              <FiCalendar
+                className="scale"
+                size={20}
+                color="#F62E76"></FiCalendar>
               <p>{data.release_date}</p>
             </span>
           ) : null}
