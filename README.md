@@ -44,8 +44,6 @@ O objetivo deste projeto é desenvolver uma aplicação frontend para consumir u
 
 A API utilizada foi: [TheMovieDB](https://www.themoviedb.org/documentation/api)
 
-Este projeto é um teste para a empresa **3035Tech**.
-
 ---
 
 ## 🔝 Requisitos
@@ -100,7 +98,7 @@ cd trending-movies
 # Instale as depêndencias:
 yarn
 
-# Execute o site em modo de desenvolvimento:
+# Execute a aplicação em modo de desenvolvimento:
 yarn start
 ```
 
